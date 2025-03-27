@@ -1,8 +1,16 @@
 services:
+  new-api:
+    build: ./new-recruitment-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./new-recruitment-api/database.sqlite:/app/database.sqlite
+    depends_on:
+      - legacy-api
+    environment:
+      NODE_ENV: production
+
   legacy-api:
-    build:
-      context: ./legacy-api
-    container_name: legacy-api
-    restart: always
+    build: ./legacy-api
     ports:
       - "4040:4040"
